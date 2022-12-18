@@ -1,0 +1,88 @@
+syntax = "proto3";
+
+option go_package = "github.com/sanzharanarbay/golang_gRPC_mongoDB_example/internal/pb";
+import "category.proto";
+import "city.proto";
+
+package pb;
+
+message Vacancy {
+  string id = 1;
+  string title = 2;
+  string slug = 3;
+  string description = 4;
+  string salary = 5;
+  bool is_active = 6;
+  bool is_distribute = 7;
+  int64 order= 8;
+  repeated City cities = 9;
+  repeated Category categories = 10;
+  string created_at= 11;
+  string updated_at = 12;
+}
+
+message ReadVacancyRequest {
+  string id = 1;
+}
+
+message ReadVacancyResponse {
+  Vacancy vacancy = 1;
+}
+
+message ListVacancyRequest {
+
+}
+
+message ListVacancyResponse {
+  repeated Vacancy vacancies = 1;
+}
+
+message CreateVacancyReq {
+  string title = 1;
+  string description = 2;
+  string salary = 3;
+  bool is_active = 4;
+  bool is_distribute = 5;
+  int64 order= 6;
+  repeated string cities = 7;
+  repeated string categories = 8;
+}
+
+message CreateVacancyResponse{
+  int64 status = 1;
+  string message = 2;
+}
+
+message UpdateVacancyReq {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  string salary = 4;
+  bool is_active = 5;
+  bool is_distribute = 6;
+  int64 order= 7;
+  repeated string cities = 8;
+  repeated string categories = 9;
+}
+
+message UpdateVacancyResponse{
+  int64 status = 1;
+  string message = 2;
+}
+
+message DeleteVacancyRequest {
+  string id = 1;
+}
+
+message DeleteVacancyResponse {
+  int64 status = 1;
+  string message = 2;
+}
+
+service VacancyService {
+  rpc CreateVacancy(CreateVacancyReq) returns (CreateVacancyResponse);
+  rpc ReadVacancy(ReadVacancyRequest) returns (ReadVacancyResponse);
+  rpc UpdateVacancy(UpdateVacancyReq) returns (UpdateVacancyResponse);
+  rpc DeleteVacancy(DeleteVacancyRequest) returns (DeleteVacancyResponse);
+  rpc ListVacancies(ListVacancyRequest) returns (ListVacancyResponse);
+}

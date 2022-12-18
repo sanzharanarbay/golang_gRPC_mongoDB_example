@@ -1,0 +1,71 @@
+syntax = "proto3";
+option go_package = "github.com/sanzharanarbay/golang_gRPC_mongoDB_example/internal/pb";
+package pb;
+
+message City {
+  string id = 1;
+  string label = 2;
+  int64 total = 3;
+  bool status= 4;
+  int64 order= 5;
+  string created_at= 6;
+  string updated_at = 7;
+}
+
+message ReadCityRequest {
+  string id = 1;
+}
+
+message ReadCityResponse {
+  City city = 1;
+}
+
+message ListCityRequest {
+
+}
+
+message ListCityResponse {
+  repeated City cities = 1;
+}
+
+message CreateCityReq {
+  string label = 1;
+  int64 total = 2;
+  bool status = 3;
+  int64 order = 4;
+}
+
+message CreateCityResponse{
+  int64 status = 1;
+  string message = 2;
+}
+
+message UpdateCityReq {
+  string id = 1;
+  string label = 2;
+  int64 total = 3;
+  bool status = 4;
+  int64 order = 5;
+}
+
+message UpdateCityResponse{
+  int64 status = 1;
+  string message = 2;
+}
+
+message DeleteCityRequest {
+  string id = 1;
+}
+
+message DeleteCityResponse {
+  int64 status = 1;
+  string message = 2;
+}
+
+service CityService {
+  rpc CreateCity(CreateCityReq) returns (CreateCityResponse);
+  rpc ReadCity(ReadCityRequest) returns (ReadCityResponse);
+  rpc UpdateCity(UpdateCityReq) returns (UpdateCityResponse);
+  rpc DeleteCity(DeleteCityRequest) returns (DeleteCityResponse);
+  rpc ListCities(ListCityRequest) returns (ListCityResponse);
+}
